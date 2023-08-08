@@ -1,5 +1,6 @@
 rootProject.name = 'rapidw-mqtt-rpc'
 include 'dto'
+include 'bootstrap'
 include 'server'
 include 'client'
 include 'driver-spec'

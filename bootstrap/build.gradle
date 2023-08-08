@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group = 'io.rapidw'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.update4j:update4j:1.5.9'
+}
+
+tasks.register('uberJar', Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    archiveClassifier = 'uber'
+
+    from sourceSets.main.output
+
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
+
+    manifest {
+        attributes(
+                'Class-Path': configurations.runtimeClasspath.files.collect { it.getName() }.join(' '))
+        attributes(
+                'Main-Class': 'io.rapidw.mqttrpc.bootstrap.Bootstrap'
+        )
+    }
+}
+
+tasks.named('build') {
+    dependsOn('uberJar')
+}

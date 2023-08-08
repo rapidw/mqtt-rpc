@@ -18,6 +18,10 @@ dependencies {
     implementation project(':driver-spec')
 
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+
+    testImplementation 'org.update4j:update4j:1.5.9'
 
     testImplementation platform("org.spockframework:spock-bom:2.3-groovy-4.0")
     testImplementation "org.spockframework:spock-core"
@@ -32,4 +36,19 @@ testing {
             useSpock()
         }
     }
+}
+
+tasks.named("jar") {
+    enabled = false
+}
+
+tasks.register("copy", Copy) {
+    from("build/libs/")
+    include("*.jar")
+    into("ggg/")
+    dependsOn('bootJar')
+}
+
+tasks.named('build') {
+    dependsOn('copy')
 }
