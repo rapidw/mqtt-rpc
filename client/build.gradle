@@ -11,23 +11,31 @@ group = 'io.rapidw'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     implementation project(':dto')
     implementation project(':driver-spec')
+    implementation project(':driver-sample')
 
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
+    implementation 'io.rapidw.mqtt:rapidw-mqtt-client:0.0.19'
+    implementation 'org.reflections:reflections:0.10.2'
 
     testImplementation 'org.update4j:update4j:1.5.9'
-
     testImplementation platform("org.spockframework:spock-bom:2.3-groovy-4.0")
     testImplementation "org.spockframework:spock-core"
 
     testRuntimeOnly 'net.bytebuddy:byte-buddy:1.12.17'
     testRuntimeOnly "org.objenesis:objenesis:3.3"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 testing {
@@ -42,13 +50,13 @@ tasks.named("jar") {
     enabled = false
 }
 
-tasks.register("copy", Copy) {
-    from("build/libs/")
-    include("*.jar")
-    into("ggg/")
-    dependsOn('bootJar')
-}
-
-tasks.named('build') {
-    dependsOn('copy')
-}
+//tasks.register("copy", Copy) {
+//    from("build/libs/")
+//    include("*.jar")
+//    into("ggg/")
+//    dependsOn('bootJar')
+//}
+//
+//tasks.named('build') {
+//    dependsOn('copy')
+//}

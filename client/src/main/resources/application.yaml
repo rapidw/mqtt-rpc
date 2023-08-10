@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+app:
+  mqtt:
+    client-id: rpc-client
+    host: localhost
+    port: 8883
+    register-request-topic: "/register-request"
+    register-response-topic: "/register-response"
+    heartbeat-topic: "/heartbeat"
+    invoke-request-topic: "/invoke-request"
+    invoke-response-topic: "/invoke-response"
+  id: client-1
+logging:
+  level:
+    io.rapidw.mqttrpc: debug

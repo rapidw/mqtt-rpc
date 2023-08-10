@@ -16,7 +16,13 @@ public class Bootstrap {
     public static void main(String[] args) {
         System.out.println("Bootstrap Staring...");
         Configuration config;
-        try (InputStream in = new URL("http://127.0.0.1:8000/out.xml").openStream()) {
+        String url;
+        if (args.length != 0) {
+            url = args[0];
+        } else {
+            url = "http://127.0.0.1:8000/out.xml";
+        }
+        try (InputStream in = new URL(url).openStream()) {
             config = Configuration.read(new InputStreamReader(in));
             if (config.requiresUpdate()) {
                 System.out.println("Update Starting...");

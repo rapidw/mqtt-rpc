@@ -11,12 +11,18 @@ group = 'io.rapidw'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     implementation project(':dto')
     implementation project(':driver-spec')
-    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'io.rapidw.mqtt:rapidw-mqtt-client:0.0.19'
+    implementation 'com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:4.2.0'
+    implementation 'io.rapidw.utils:rapidw-vo:0.0.1-SNAPSHOT'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'mysql:mysql-connector-java:8.0.28'
 
     testImplementation platform("org.spockframework:spock-bom:2.3-groovy-4.0")
     testImplementation "org.spockframework:spock-core"
@@ -25,10 +31,24 @@ dependencies {
     testRuntimeOnly "org.objenesis:objenesis:3.3"
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 testing {
     suites {
         test {
             useSpock()
         }
     }
+}
+
+tasks.named('compileJava') {
+    mustRunAfter(':driver-sample:copy')
+}
+
+tasks.named('processResources') {
+    mustRunAfter(':driver-sample:copy')
 }

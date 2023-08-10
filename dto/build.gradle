@@ -8,7 +8,13 @@ group = 'io.rapidw'
 repositories {
     mavenCentral()
 }
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 dependencies {
+    implementation project(":driver-spec")
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 }

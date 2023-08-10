@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'java-library'
 }
 
 group = 'io.rapidw'
@@ -9,6 +9,9 @@ repositories {
 }
 
 dependencies {
+    implementation project(':driver-spec')
+    implementation 'org.reflections:reflections:0.10.2'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
 }
 
 java {
@@ -17,4 +20,7 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(8)
     }
+}
+
+dependencies {
 }
