@@ -1,4 +1,4 @@
-package io.rapidw.mqttrpc.dto;
+package io.rapidw.mqttrpc.mqtt;
 
 import io.rapidw.mqttrpc.driver.spec.Driver;
 import lombok.Data;

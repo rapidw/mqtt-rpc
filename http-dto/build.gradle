@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id "io.freefair.lombok" version "6.6.1"
+}
+
+group = 'io.rapidw'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+dependencies {
+    implementation project(":driver-spec")
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+}

@@ -1,7 +1,7 @@
 package io.rapidw.mqttrpc.server.service;
 
-import io.rapidw.mqttrpc.dto.Heartbeat;
-import io.rapidw.mqttrpc.dto.RegisterRequest;
+import io.rapidw.mqttrpc.mqtt.Heartbeat;
+import io.rapidw.mqttrpc.mqtt.RegisterRequest;
 import io.rapidw.mqttrpc.server.model.Client;
 import io.rapidw.mqttrpc.server.model.ClientDriver;
 import io.rapidw.mqttrpc.server.repository.ClientRepository;

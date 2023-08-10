@@ -1,5 +1,7 @@
 plugins {
     id 'java-library'
+    id 'groovy'
+    id "io.freefair.lombok" version "6.6.1"
 }
 
 group = 'io.rapidw'
@@ -10,8 +12,13 @@ repositories {
 
 dependencies {
     implementation project(':driver-spec')
+    implementation project(':http-dto')
     implementation 'org.reflections:reflections:0.10.2'
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+
+    testImplementation 'ch.qos.logback:logback-classic:1.4.11'
 }
 
 java {
@@ -22,5 +29,10 @@ java {
     }
 }
 
-dependencies {
+testing {
+    suites {
+        test {
+            useSpock()
+        }
+    }
 }

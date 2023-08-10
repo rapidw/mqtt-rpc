@@ -6,10 +6,10 @@ import io.rapidw.mqtt.client.v3_1_1.*;
 import io.rapidw.mqtt.client.v3_1_1.handler.*;
 import io.rapidw.mqtt.codec.v3_1_1.MqttV311QosLevel;
 import io.rapidw.mqtt.codec.v3_1_1.MqttV311TopicAndQosLevel;
-import io.rapidw.mqttrpc.dto.Heartbeat;
-import io.rapidw.mqttrpc.dto.InvokeRequest;
-import io.rapidw.mqttrpc.dto.RegisterRequest;
-import io.rapidw.mqttrpc.dto.RegisterResponse;
+import io.rapidw.mqttrpc.mqtt.Heartbeat;
+import io.rapidw.mqttrpc.mqtt.InvokeRequest;
+import io.rapidw.mqttrpc.mqtt.RegisterRequest;
+import io.rapidw.mqttrpc.mqtt.RegisterResponse;
 import io.rapidw.mqttrpc.server.config.AppConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -113,6 +113,22 @@ public class MqttService {
                         log.error("subscribe heartbeat topic error", cause);
                     }
                 });
+                connection.subscribe(List.of(new MqttV311TopicAndQosLevel(appConfig.getMqtt().getInvokeResponseTopic(), MqttV311QosLevel.AT_MOST_ONCE)), new MqttMessageHandler() {
+                    @Override
+                    public void onMessage(MqttConnection mqttConnection, String s, MqttV311QosLevel mqttV311QosLevel, boolean b, boolean b1, Integer integer, byte[] bytes) {
+
+                    }
+                }, new MqttSubscribeResultHandler() {
+                    @Override
+                    public void onSuccess(MqttConnection mqttConnection, List<MqttSubscription> list) {
+
+                    }
+
+                    @Override
+                    public void onError(MqttConnection mqttConnection, Throwable throwable) {
+
+                    }
+                });
             }
 
             @Override
@@ -129,7 +145,16 @@ public class MqttService {
 
     public void publishInvoke(InvokeRequest request) {
         try {
-            mqttConnection.publishQos0Message(appConfig.getMqtt().getInvokeRequestTopic(), false, objectMapper.writeValueAsBytes(request));
+            mqttConnection.publishQos0Message(appConfig.getMqtt().getInvokeRequestTopic(), false, objectMapper.writeValueAsBytes(request), new MqttPublishResultHandler() {
+                @Override
+                public void onSuccess(MqttConnection mqttConnection) {
+                }
+
+                @Override
+                public void onError(MqttConnection mqttConnection, Throwable throwable) {
+
+                }
+            });
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

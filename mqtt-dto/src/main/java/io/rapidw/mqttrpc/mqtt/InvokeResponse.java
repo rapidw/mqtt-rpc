@@ -1,4 +1,4 @@
-package io.rapidw.mqttrpc.dto;
+package io.rapidw.mqttrpc.mqtt;
 
 import lombok.Data;
 

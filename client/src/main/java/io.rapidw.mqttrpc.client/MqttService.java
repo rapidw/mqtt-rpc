@@ -7,7 +7,7 @@ import io.rapidw.mqtt.client.v3_1_1.*;
 import io.rapidw.mqtt.client.v3_1_1.handler.*;
 import io.rapidw.mqtt.codec.v3_1_1.MqttV311QosLevel;
 import io.rapidw.mqtt.codec.v3_1_1.MqttV311TopicAndQosLevel;
-import io.rapidw.mqttrpc.dto.*;
+import io.rapidw.mqttrpc.mqtt.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -27,7 +27,7 @@ public class MqttService {
     private MqttV311Client client;
     private MqttConnection connection;
     private byte[] heartbeatByteArray;
-    private HashedWheelTimer timer = new HashedWheelTimer(1, TimeUnit.SECONDS);
+    private final HashedWheelTimer timer = new HashedWheelTimer(1, TimeUnit.SECONDS);
     private Timeout registerTimeout;
 
     private final AppConfig appConfig;
